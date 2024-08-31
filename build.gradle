@@ -11,6 +11,10 @@ java {
     }
 }
 
+wrapper {
+    gradleVersion = '8.10'
+}
+
 repositories {
     mavenCentral()
 }
