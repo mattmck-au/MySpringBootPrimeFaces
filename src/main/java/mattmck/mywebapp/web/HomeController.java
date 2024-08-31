@@ -1,6 +1,7 @@
 package mattmck.mywebapp.web;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,21 @@ public class HomeController {
 	@Autowired
 	private HomeBean homeBean;
 
+	public void searchSingleAction() {
+		log.debug("testAction: {}", homeBean.getSearchCriteria());
+	
+		if (homeBean.getSearchCriteria() != null) { 
+			List<String> alphabet = Collections.nCopies(20, homeBean.getSearchCriteria()); 
+			
+			homeBean.setSearchResults(alphabet.stream()
+					.map(a -> String.format("%s %s", 
+							new Adjectives().getRandom(a),
+							new Animals().getRandom(a)))
+					.collect(Collectors.toList()));
+		}
+	}
+	
+	
 	public void searchAction() {
 		log.debug("testAction: {}", homeBean.getSearchCriteria());
 	
