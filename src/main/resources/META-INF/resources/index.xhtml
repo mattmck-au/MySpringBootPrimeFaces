@@ -9,14 +9,13 @@
 
 	<ui:define name="body">
 		<p:inputText value="#{homeBean.searchCriteria}" />
-		<p:commandButton value="Search" action="#{homeController.searchAction}" process="@this" update="@form" />
+		<p:commandButton value="Search" action="#{homeController.searchAction}" process="@form" update="@form" />
 
-
-
-
-
-
-
+		<p:dataTable var="searchResult" value="#{homeBean.searchResults}" >
+			<p:column headerText="Result">
+                <h:outputText value="#{searchResult}" />
+            </p:column>
+		</p:dataTable>
 		
 	</ui:define>
 </ui:composition>

@@ -1,10 +1,16 @@
 package mattmck.mywebapp.web;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
 import lombok.extern.slf4j.Slf4j;
+import mattmck.mywebapp.service.Adjectives;
+import mattmck.mywebapp.service.Animals;
 
 @Slf4j
 @Component
@@ -15,12 +21,16 @@ public class HomeController {
 	private HomeBean homeBean;
 
 	public void searchAction() {
-
-		if (homeBean != null) {
-			homeBean.setSearchCriteria("X");
+		log.debug("testAction: {}", homeBean.getSearchCriteria());
+	
+		if (homeBean.getSearchCriteria() != null) { 
+			List<String> alphabet = Arrays.asList("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z");
+			
+			homeBean.setSearchResults(alphabet.stream()
+					.map(a -> String.format("%s %s", 
+							new Adjectives().getRandom(a),
+							new Animals().getRandom(a)))
+					.collect(Collectors.toList()));
 		}
-		
-		log.debug("testAction");
-		
 	}
 }
